@@ -13,6 +13,24 @@ router = APIRouter(
 
 @router.post("/")
 def create(transaction: schema.TransactionIn, db: Session = Depends(get_db)):
+    account = crud.account.get(db, transaction.account_id)
+    if account is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Account not found"
+        )
+
+    payee = crud.payee.get(db, transaction.payee_id)
+    if payee is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Payee not found"
+        )
+
+    category = crud.category.get(db, transaction.category_id)
+    if category is None:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
+        )
+
     crud.transaction.create(db, transaction)
 
 
