@@ -1,10 +1,31 @@
-from sqlalchemy import Column, Integer, String
+from typing import TYPE_CHECKING, Optional
 
-from ..database import Base
+from sqlmodel import Field, Relationship, SQLModel
+
+if TYPE_CHECKING:
+    from .transaction import TransactionDb
 
 
-class Account(Base):
-    __tablename__ = "accounts"
+class AccountUpdate(SQLModel):
+    name: Optional[str] = None
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True)
+
+class AccountBase(SQLModel):
+    name: str = Field(unique=True, index=True)
+
+
+class AccountIn(AccountBase):
+    balance: float = 0
+
+
+class AccountDb(AccountBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    transactions: list["TransactionDb"] = Relationship(back_populates="account")
+
+
+class AccountOut(AccountBase):
+    id: int
+    balance: float
+
+    class Config:
+        orm_mode = True

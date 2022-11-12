@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 
-from .. import crud, schema
-from ..dependencies import get_db
+from .. import crud, model
+from ..database import get_session
 
 router = APIRouter(
     prefix="/category",
@@ -12,43 +12,37 @@ router = APIRouter(
 
 
 @router.post("/")
-def create(category: schema.CategoryIn, db: Session = Depends(get_db)):
-    db_category = crud.category.get_by_name(db, category.name)
-    if db_category is not None:
+def create(category_in: model.CategoryIn, session: Session = Depends(get_session)):
+    category_row = crud.category.get_by_name(session, category_in.name)
+    if category_row is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Name already registered"
         )
 
-    crud.category.create(db, category)
+    crud.category.create(session, category_in)
 
 
-@router.get("/{id}", response_model=schema.CategoryOut)
-def read(id: int, db: Session = Depends(get_db)):
-    category = crud.category.get(db, id)
-    if category is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
-        )
+@router.get("/{id}", response_model=model.CategoryOut)
+def read(id: int, session: Session = Depends(get_session)):
+    category_row = crud.category.get_full(session, id)
+    if category_row is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Category not found")
 
-    # TODO: get_expenditure and get_available
-
-    return category
+    return category_row
 
 
-@router.get("/", response_model=list[schema.CategoryOut])
-def read_all(db: Session = Depends(get_db)):
-    categories = crud.category.get_all(db)
+@router.get("/", response_model=list[model.CategoryOut])
+def read_many(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
+    categorie_rows = crud.category.get_many_full(session, skip, limit)
 
-    # TODO: get_expenditure and get_available
-
-    return categories
+    return categorie_rows
 
 
 @router.put("/{id}")
-def update(id: int, update: schema.CategoryUpdate, db: Session = Depends(get_db)):
-    crud.category.update(db, id, update)
+def update(id: int, category_update: model.CategoryUpdate, session: Session = Depends(get_session)):
+    crud.category.update(session, id, category_update)
 
 
 @router.delete("/{id}")
-def delete(id: int, db: Session = Depends(get_db)):
-    crud.category.delete(db, id)
+def delete(id: int, session: Session = Depends(get_session)):
+    crud.category.delete(session, id)

@@ -1,9 +1,9 @@
 from fastapi import FastAPI
 
-from .database import Base, engine
+from .database import create_db_and_tables
 from .router import account, category, payee, transaction
 
-Base.metadata.create_all(bind=engine)
+create_db_and_tables()
 
 app = FastAPI()
 

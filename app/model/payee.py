@@ -1,10 +1,30 @@
-from sqlalchemy import Column, Integer, String
+from typing import TYPE_CHECKING, Optional
 
-from ..database import Base
+from sqlmodel import Field, Relationship, SQLModel
+
+if TYPE_CHECKING:
+    from .transaction import TransactionDb
 
 
-class Payee(Base):
-    __tablename__ = "payees"
+class PayeeUpdate(SQLModel):
+    name: Optional[str] = None
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True)
+
+class PayeeBase(SQLModel):
+    name: str = Field(unique=True, index=True)
+
+
+class PayeeIn(PayeeBase):
+    pass
+
+
+class PayeeDb(PayeeBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    transactions: list["TransactionDb"] = Relationship(back_populates="payee")
+
+
+class PayeeOut(PayeeBase):
+    id: int
+
+    class Config:
+        orm_mode = True

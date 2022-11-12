@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 
-from .. import crud, schema
-from ..dependencies import get_db
+from .. import crud, model
+from ..database import get_session
 
 router = APIRouter(
     prefix="/transaction",
@@ -12,51 +12,33 @@ router = APIRouter(
 
 
 @router.post("/")
-def create(transaction: schema.TransactionIn, db: Session = Depends(get_db)):
-    account = crud.account.get(db, transaction.account_id)
-    if account is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Account not found"
-        )
-
-    payee = crud.payee.get(db, transaction.payee_id)
-    if payee is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Payee not found"
-        )
-
-    category = crud.category.get(db, transaction.category_id)
-    if category is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Category not found"
-        )
-
-    crud.transaction.create(db, transaction)
+def create(transaction_in: model.TransactionIn, session: Session = Depends(get_session)):
+    crud.transaction.create(session, transaction_in)
 
 
-@router.get("/{id}", response_model=schema.TransactionOut)
-def read(id: int, db: Session = Depends(get_db)):
-    transaction = crud.transaction.get(db, id)
-    if transaction is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Transaction not found"
-        )
+@router.get("/{id}", response_model=model.TransactionOut)
+def read(id: int, session: Session = Depends(get_session)):
+    transaction_row = crud.transaction.get_full(session, id)
+    if transaction_row is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Transaction not found")
 
-    return transaction
+    return transaction_row
 
 
-@router.get("/", response_model=list[schema.TransactionOut])
-def read_all(db: Session = Depends(get_db)):
-    transactions = crud.transaction.get_all(db)
+@router.get("/", response_model=list[model.TransactionOut])
+def read_all(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
+    transaction_rows = crud.transaction.get_many_full(session, skip, limit)
 
-    return transactions
+    return transaction_rows
 
 
 @router.put("/{id}")
-def update(id: int, update: schema.TransactionUpdate, db: Session = Depends(get_db)):
-    crud.transaction.update(db, id, update)
+def update(
+    id: int, transaction_update: model.TransactionUpdate, session: Session = Depends(get_session)
+):
+    crud.transaction.update(session, id, transaction_update)
 
 
 @router.delete("/{id}")
-def delete(id: int, db: Session = Depends(get_db)):
-    crud.transaction.delete(db, id)
+def delete(id: int, session: Session = Depends(get_session)):
+    crud.transaction.delete(session, id)

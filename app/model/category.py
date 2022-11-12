@@ -1,11 +1,34 @@
-from sqlalchemy import Column, Float, Integer, String
+from typing import TYPE_CHECKING, Optional
 
-from ..database import Base
+from sqlmodel import Field, Relationship, SQLModel
+
+if TYPE_CHECKING:
+    from .transaction import TransactionDb
 
 
-class Category(Base):
-    __tablename__ = "categories"
+class CategoryUpdate(SQLModel):
+    name: Optional[str] = None
+    budget: Optional[float] = None
 
-    id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, unique=True)
-    budget = Column(Float)
+
+class CategoryBase(SQLModel):
+    name: str = Field(unique=True, index=True)
+    budget: float
+
+
+class CategoryIn(CategoryBase):
+    pass
+
+
+class CategoryDb(CategoryBase, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
+    transactions: list["TransactionDb"] = Relationship(back_populates="category")
+
+
+class CategoryOut(CategoryBase):
+    id: int
+    expenditure: float
+    available: float
+
+    class Config:
+        orm_mode = True

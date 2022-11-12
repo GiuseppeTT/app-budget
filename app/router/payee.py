@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from sqlalchemy.orm import Session
+from sqlmodel import Session
 
-from .. import crud, schema
-from ..dependencies import get_db
+from .. import crud, model
+from ..database import get_session
 
 router = APIRouter(
     prefix="/payee",
@@ -12,39 +12,37 @@ router = APIRouter(
 
 
 @router.post("/")
-def create(payee: schema.PayeeIn, db: Session = Depends(get_db)):
-    db_payee = crud.payee.get_by_name(db, payee.name)
-    if db_payee is not None:
+def create(payee_in: model.PayeeIn, session: Session = Depends(get_session)):
+    payee_row = crud.payee.get_by_name(session, payee_in.name)
+    if payee_row is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Name already registered"
         )
 
-    crud.payee.create(db, payee)
+    crud.payee.create(session, payee_in)
 
 
-@router.get("/{id}", response_model=schema.PayeeOut)
-def read(id: int, db: Session = Depends(get_db)):
-    payee = crud.payee.get(db, id)
-    if payee is None:
-        raise HTTPException(
-            status_code=status.HTTP_404_NOT_FOUND, detail="Payee not found"
-        )
+@router.get("/{id}", response_model=model.PayeeOut)
+def read(id: int, session: Session = Depends(get_session)):
+    payee_row = crud.payee.get_full(session, id)
+    if payee_row is None:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Payee not found")
 
-    return payee
+    return payee_row
 
 
-@router.get("/", response_model=list[schema.PayeeOut])
-def read_all(db: Session = Depends(get_db)):
-    payees = crud.payee.get_all(db)
+@router.get("/", response_model=list[model.PayeeOut])
+def read_many(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
+    payees = crud.payee.get_many_full(session, skip, limit)
 
     return payees
 
 
 @router.put("/{id}")
-def update(id: int, update: schema.PayeeUpdate, db: Session = Depends(get_db)):
-    crud.payee.update(db, id, update)
+def update(id: int, payee_update: model.PayeeUpdate, session: Session = Depends(get_session)):
+    crud.payee.update(session, id, payee_update)
 
 
 @router.delete("/{id}")
-def delete(id: int, db: Session = Depends(get_db)):
-    crud.payee.delete(db, id)
+def delete(id: int, session: Session = Depends(get_session)):
+    crud.payee.delete(session, id)
