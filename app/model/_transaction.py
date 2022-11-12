@@ -4,9 +4,9 @@ from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from .account import AccountDb
-    from .category import CategoryDb
-    from .payee import PayeeDb
+    from ._account import AccountDb
+    from ._category import CategoryDb
+    from ._payee import PayeeDb
 
 
 class TransactionUpdate(SQLModel):

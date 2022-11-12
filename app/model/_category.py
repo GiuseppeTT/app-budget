@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from .transaction import TransactionDb
+    from ._transaction import TransactionDb
 
 
 class CategoryUpdate(SQLModel):
