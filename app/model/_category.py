@@ -12,6 +12,8 @@ class CategoryIn(SQLModel):
 
 
 class CategoryDb(SQLModel, table=True):
+    __tablename__ = "category"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
     budget: float

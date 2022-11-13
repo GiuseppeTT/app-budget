@@ -19,11 +19,13 @@ class TransactionIn(SQLModel):
 
 
 class TransactionDb(SQLModel, table=True):
+    __tablename__ = "transaction"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     date_time: datetime = Field(default_factory=datetime.now)
-    account_id: Optional[int] = Field(default=None, foreign_key="accountdb.id")
-    payee_id: Optional[int] = Field(default=None, foreign_key="payeedb.id")
-    category_id: Optional[int] = Field(default=None, foreign_key="categorydb.id")
+    account_id: Optional[int] = Field(default=None, foreign_key="account.id")
+    payee_id: Optional[int] = Field(default=None, foreign_key="payee.id")
+    category_id: Optional[int] = Field(default=None, foreign_key="category.id")
     value: float
     comment: Optional[str] = None
 

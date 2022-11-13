@@ -11,6 +11,8 @@ class PayeeIn(SQLModel):
 
 
 class PayeeDb(SQLModel, table=True):
+    __tablename__ = "payee"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
 

@@ -11,6 +11,8 @@ class AccountIn(SQLModel):
 
 
 class AccountDb(SQLModel, table=True):
+    __tablename__ = "account"
+
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
 
