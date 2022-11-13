@@ -7,7 +7,7 @@ from ..database import get_session
 router = APIRouter(
     prefix="/transaction",
     tags=["transaction"],
-    responses={404: {"description": "Not found"}},
+    responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
 )
 
 
