@@ -7,12 +7,12 @@ from ._base import CrudBaseNamed
 class CrudAccount(
     CrudBaseNamed[model.AccountUpdate, model.AccountIn, model.AccountDb, model.AccountOut]
 ):
-    def get_full(self, session: Session, id: int):
+    def get_full(self, session: Session, id_: int):
         balance = func.ifnull(func.sum(model.TransactionDb.value), 0).label("balance")
         statement = (
             select(self.model_db.id, self.model_db.name, balance)
             .join(model.TransactionDb, isouter=True)
-            .where(self.model_db.id == id)
+            .where(self.model_db.id == id_)
         )
         result = session.exec(statement)
         row = result.first()

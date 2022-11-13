@@ -22,9 +22,9 @@ def create(account_in: model.AccountIn, session: Session = Depends(get_session))
     crud.account.create(session, account_in)
 
 
-@router.get("/{id}", response_model=model.AccountOut)
-def read(id: int, session: Session = Depends(get_session)):
-    account_row = crud.account.get_full(session, id)
+@router.get("/{id_}", response_model=model.AccountOut)
+def read(id_: int, session: Session = Depends(get_session)):
+    account_row = crud.account.get_full(session, id_)
     if account_row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Account not found")
 
@@ -38,11 +38,11 @@ def read_many(skip: int = 0, limit: int = 100, session: Session = Depends(get_se
     return account_rows
 
 
-@router.put("/{id}")
-def update(id: int, account_update: model.AccountUpdate, session: Session = Depends(get_session)):
-    crud.account.update(session, id, account_update)
+@router.put("/{id_}")
+def update(id_: int, account_update: model.AccountUpdate, session: Session = Depends(get_session)):
+    crud.account.update(session, id_, account_update)
 
 
-@router.delete("/{id}")
-def delete(id: int, session: Session = Depends(get_session)):
-    crud.account.delete(session, id)
+@router.delete("/{id_}")
+def delete(id_: int, session: Session = Depends(get_session)):
+    crud.account.delete(session, id_)

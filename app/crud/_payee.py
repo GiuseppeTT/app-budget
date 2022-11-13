@@ -5,12 +5,12 @@ from ._base import CrudBaseNamed
 
 
 class CrudPayee(CrudBaseNamed[model.PayeeUpdate, model.PayeeIn, model.PayeeDb, model.PayeeOut]):
-    def get_full(self, session: Session, id: int):
+    def get_full(self, session: Session, id_: int):
         expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
         statement = (
             select(self.model_db.id, self.model_db.name, expenditure)
             .join(model.TransactionDb, isouter=True)
-            .where(self.model_db.id == id)
+            .where(self.model_db.id == id_)
         )
         result = session.exec(statement)
         row = result.first()

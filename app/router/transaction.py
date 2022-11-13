@@ -16,9 +16,9 @@ def create(transaction_in: model.TransactionIn, session: Session = Depends(get_s
     crud.transaction.create(session, transaction_in)
 
 
-@router.get("/{id}", response_model=model.TransactionOut)
-def read(id: int, session: Session = Depends(get_session)):
-    transaction_row = crud.transaction.get_full(session, id)
+@router.get("/{id_}", response_model=model.TransactionOut)
+def read(id_: int, session: Session = Depends(get_session)):
+    transaction_row = crud.transaction.get_full(session, id_)
     if transaction_row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Transaction not found")
 
@@ -32,13 +32,13 @@ def read_all(skip: int = 0, limit: int = 100, session: Session = Depends(get_ses
     return transaction_rows
 
 
-@router.put("/{id}")
+@router.put("/{id_}")
 def update(
-    id: int, transaction_update: model.TransactionUpdate, session: Session = Depends(get_session)
+    id_: int, transaction_update: model.TransactionUpdate, session: Session = Depends(get_session)
 ):
-    crud.transaction.update(session, id, transaction_update)
+    crud.transaction.update(session, id_, transaction_update)
 
 
-@router.delete("/{id}")
-def delete(id: int, session: Session = Depends(get_session)):
-    crud.transaction.delete(session, id)
+@router.delete("/{id_}")
+def delete(id_: int, session: Session = Depends(get_session)):
+    crud.transaction.delete(session, id_)

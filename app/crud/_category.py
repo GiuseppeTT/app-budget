@@ -7,7 +7,7 @@ from ._base import CrudBaseNamed
 class CrudCategory(
     CrudBaseNamed[model.CategoryUpdate, model.CategoryIn, model.CategoryDb, model.CategoryOut]
 ):
-    def get_full(self, session: Session, id: int):
+    def get_full(self, session: Session, id_: int):
         expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
         available = (self.model_db.budget + expenditure).label("available")
         statement = (
@@ -19,7 +19,7 @@ class CrudCategory(
                 available,
             )
             .join(model.TransactionDb, isouter=True)
-            .where(self.model_db.id == id)
+            .where(self.model_db.id == id_)
         )
         result = session.exec(statement)
         row = result.first()
