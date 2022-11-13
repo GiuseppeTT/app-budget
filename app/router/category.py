@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlmodel import Session
 
-from .. import crud, model
-from ..database import get_session
+from app import crud, model
+from app.database import get_session
 
 router = APIRouter(
     prefix="/category",

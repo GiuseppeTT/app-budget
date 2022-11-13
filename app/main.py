@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from .database import create_db_and_tables
-from .router import account, category, payee, transaction
+from app.database import create_db_and_tables
+from app.router import account, category, payee, transaction
 
 create_db_and_tables()
 

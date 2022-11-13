@@ -1,7 +1,7 @@
 from sqlmodel import Session, func, select
 
-from .. import model
-from ._base import CrudBaseNamed
+from app import model
+from app.crud._base import CrudBaseNamed
 
 
 class CrudCategory(

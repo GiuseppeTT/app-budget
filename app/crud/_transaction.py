@@ -1,5 +1,5 @@
-from .. import model
-from ._base import CrudBase
+from app import model
+from app.crud._base import CrudBase
 
 
 class CrudTransaction(

@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from ._transaction import TransactionDb
+    from app.model._transaction import TransactionDb
 
 
 class PayeeIn(SQLModel):
