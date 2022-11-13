@@ -6,26 +6,25 @@ if TYPE_CHECKING:
     from ._transaction import TransactionDb
 
 
-class AccountUpdate(SQLModel):
-    name: Optional[str] = None
+class AccountIn(SQLModel):
+    name: str
 
 
-class AccountBase(SQLModel):
+class AccountDb(SQLModel, table=True):
+    id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
 
-
-class AccountIn(AccountBase):
-    balance: float = 0
-
-
-class AccountDb(AccountBase, table=True):
-    id: Optional[int] = Field(default=None, primary_key=True)
     transactions: list["TransactionDb"] = Relationship(back_populates="account")
 
 
-class AccountOut(AccountBase):
+class AccountOut(SQLModel):
     id: int
+    name: str
     balance: float
 
     class Config:
         orm_mode = True
+
+
+class AccountUpdate(SQLModel):
+    name: Optional[str] = None

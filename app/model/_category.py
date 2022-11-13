@@ -6,29 +6,30 @@ if TYPE_CHECKING:
     from ._transaction import TransactionDb
 
 
-class CategoryUpdate(SQLModel):
-    name: Optional[str] = None
-    budget: Optional[float] = None
-
-
-class CategoryBase(SQLModel):
-    name: str = Field(unique=True, index=True)
+class CategoryIn(SQLModel):
+    name: str
     budget: float
 
 
-class CategoryIn(CategoryBase):
-    pass
-
-
-class CategoryDb(CategoryBase, table=True):
+class CategoryDb(SQLModel, table=True):
     id: Optional[int] = Field(default=None, primary_key=True)
+    name: str = Field(unique=True, index=True)
+    budget: float
+
     transactions: list["TransactionDb"] = Relationship(back_populates="category")
 
 
-class CategoryOut(CategoryBase):
+class CategoryOut(SQLModel):
     id: int
+    name: str
+    budget: float
     expenditure: float
     available: float
 
     class Config:
         orm_mode = True
+
+
+class CategoryUpdate(SQLModel):
+    name: Optional[str] = None
+    budget: Optional[float] = None

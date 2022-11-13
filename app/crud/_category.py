@@ -8,7 +8,7 @@ class CrudCategory(
     CrudBaseNamed[model.CategoryUpdate, model.CategoryIn, model.CategoryDb, model.CategoryOut]
 ):
     def get_full(self, session: Session, id: int):
-        expenditure = func.sum(model.TransactionDb.value).label("expenditure")
+        expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
         available = (self.model_db.budget + expenditure).label("available")
         statement = (
             select(
@@ -27,7 +27,7 @@ class CrudCategory(
         return row
 
     def get_many_full(self, session: Session, skip: int, limit: int):
-        expenditure = func.sum(model.TransactionDb.value).label("expenditure")
+        expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
         available = (self.model_db.budget + expenditure).label("available")
         statement = (
             select(
