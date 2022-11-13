@@ -1,51 +1,29 @@
-from sqlmodel import Session, func, select
+from sqlmodel import Session, func
 
 from app import model
 from app.crud._base import CrudBaseNamed
 
 
 class CrudCategory(
-    CrudBaseNamed[model.CategoryUpdate, model.CategoryIn, model.CategoryDb, model.CategoryOut]
+    CrudBaseNamed[
+        model.CategoryInput, model.CategoryDatabase, model.CategoryOutput, model.CategoryUpdate
+    ]
 ):
     def get_full(self, session: Session, id_: int):
-        expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
-        available = (self.model_db.budget + expenditure).label("available")
-        statement = (
-            select(
-                self.model_db.id,
-                self.model_db.name,
-                self.model_db.budget,
-                expenditure,
-                available,
-            )
-            .join(model.TransactionDb, isouter=True)
-            .where(self.model_db.id == id_)
-        )
-        result = session.exec(statement)
-        row = result.first()
+        budget = self.model_database.budget
+        expenditure = func.ifnull(func.sum(model.TransactionDatabase.value), 0).label("expenditure")
+        available = (budget + expenditure).label("available")
+        row = self._get_full(session, id_, budget, expenditure, available)
 
         return row
 
     def get_many_full(self, session: Session, skip: int, limit: int):
-        expenditure = func.ifnull(func.sum(model.TransactionDb.value), 0).label("expenditure")
-        available = (self.model_db.budget + expenditure).label("available")
-        statement = (
-            select(
-                self.model_db.id,
-                self.model_db.name,
-                self.model_db.budget,
-                expenditure,
-                available,
-            )
-            .join(model.TransactionDb, isouter=True)
-            .group_by(self.model_db.id)
-            .offset(skip)
-            .limit(limit)
-        )
-        result = session.exec(statement)
-        rows = result.all()
+        budget = self.model_database.budget
+        expenditure = func.ifnull(func.sum(model.TransactionDatabase.value), 0).label("expenditure")
+        available = (budget + expenditure).label("available")
+        rows = self._get_many_full(session, skip, limit, budget, expenditure, available)
 
         return rows
 
 
-category = CrudCategory(model.CategoryDb)
+category = CrudCategory(model.CategoryDatabase)

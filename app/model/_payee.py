@@ -3,23 +3,23 @@ from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from app.model._transaction import TransactionDb
+    from app.model._transaction import TransactionDatabase
 
 
-class PayeeIn(SQLModel):
+class PayeeInput(SQLModel):
     name: str
 
 
-class PayeeDb(SQLModel, table=True):
+class PayeeDatabase(SQLModel, table=True):
     __tablename__ = "payee"
 
     id: Optional[int] = Field(default=None, primary_key=True)
     name: str = Field(unique=True, index=True)
 
-    transactions: list["TransactionDb"] = Relationship(back_populates="payee")
+    transactions: list["TransactionDatabase"] = Relationship(back_populates="payee")
 
 
-class PayeeOut(SQLModel):
+class PayeeOutput(SQLModel):
     id: int
     name: str
     expenditure: float

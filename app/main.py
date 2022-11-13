@@ -3,9 +3,12 @@ from fastapi import FastAPI
 from app.database import create_db_and_tables
 from app.router import account, category, payee, transaction
 
-create_db_and_tables()
-
 app = FastAPI()
+
+
+@app.on_event("startup")
+def on_startup():
+    create_db_and_tables()
 
 
 app.include_router(account.router)

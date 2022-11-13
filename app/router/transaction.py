@@ -11,34 +11,38 @@ router = APIRouter(
 )
 
 
-@router.post("/")
-def create(transaction_in: model.TransactionIn, session: Session = Depends(get_session)):
-    crud.transaction.create(session, transaction_in)
+@router.post("/", response_model=model.TransactionOutput)
+def create(input_: model.TransactionInput, session: Session = Depends(get_session)):
+    row = crud.transaction.create(session, input_)
+
+    return row
 
 
-@router.get("/{id_}", response_model=model.TransactionOut)
+@router.get("/{id_}", response_model=model.TransactionOutput)
 def read(id_: int, session: Session = Depends(get_session)):
-    transaction_row = crud.transaction.get_full(session, id_)
-    if transaction_row is None:
+    row = crud.transaction.get(session, id_)
+    if row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Transaction not found")
 
-    return transaction_row
+    return row
 
 
-@router.get("/", response_model=list[model.TransactionOut])
-def read_all(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
-    transaction_rows = crud.transaction.get_many_full(session, skip, limit)
+@router.get("/", response_model=list[model.TransactionOutput])
+def read_many(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
+    rows = crud.transaction.get_many(session, skip, limit)
 
-    return transaction_rows
-
-
-@router.put("/{id_}")
-def update(
-    id_: int, transaction_update: model.TransactionUpdate, session: Session = Depends(get_session)
-):
-    crud.transaction.update(session, id_, transaction_update)
+    return rows
 
 
-@router.delete("/{id_}")
+@router.put("/{id_}", response_model=model.TransactionOutput)
+def update(id_: int, update_: model.TransactionUpdate, session: Session = Depends(get_session)):
+    row = crud.transaction.update(session, id_, update_)
+
+    return row
+
+
+@router.delete("/{id_}", response_model=model.TransactionOutput)
 def delete(id_: int, session: Session = Depends(get_session)):
-    crud.transaction.delete(session, id_)
+    row = crud.transaction.delete(session, id_)
+
+    return row

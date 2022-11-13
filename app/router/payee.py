@@ -11,38 +11,47 @@ router = APIRouter(
 )
 
 
-@router.post("/")
-def create(payee_in: model.PayeeIn, session: Session = Depends(get_session)):
-    payee_row = crud.payee.get_by_name(session, payee_in.name)
-    if payee_row is not None:
+@router.post("/", response_model=model.PayeeOutput)
+def create(input_: model.PayeeInput, session: Session = Depends(get_session)):
+    found_row = crud.payee.get_by_name(session, input_.name)
+    if found_row is not None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST, detail="Name already registered"
         )
 
-    crud.payee.create(session, payee_in)
+    row = crud.payee.create(session, input_)
+    full_row = crud.payee.get_full(session, row.id)
+
+    return full_row
 
 
-@router.get("/{id_}", response_model=model.PayeeOut)
+@router.get("/{id_}", response_model=model.PayeeOutput)
 def read(id_: int, session: Session = Depends(get_session)):
-    payee_row = crud.payee.get_full(session, id_)
-    if payee_row is None:
+    full_row = crud.payee.get_full(session, id_)
+    if full_row is None:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Payee not found")
 
-    return payee_row
+    return full_row
 
 
-@router.get("/", response_model=list[model.PayeeOut])
+@router.get("/", response_model=list[model.PayeeOutput])
 def read_many(skip: int = 0, limit: int = 100, session: Session = Depends(get_session)):
-    payees = crud.payee.get_many_full(session, skip, limit)
+    full_rows = crud.payee.get_many_full(session, skip, limit)
 
-    return payees
-
-
-@router.put("/{id_}")
-def update(id_: int, payee_update: model.PayeeUpdate, session: Session = Depends(get_session)):
-    crud.payee.update(session, id_, payee_update)
+    return full_rows
 
 
-@router.delete("/{id_}")
+@router.put("/{id_}", response_model=model.PayeeOutput)
+def update(id_: int, update_: model.PayeeUpdate, session: Session = Depends(get_session)):
+    row = crud.payee.update(session, id_, update_)
+    full_row = crud.payee.get_full(session, row.id)
+
+    return full_row
+
+
+@router.delete("/{id_}", response_model=model.PayeeOutput)
 def delete(id_: int, session: Session = Depends(get_session)):
+    full_row = crud.payee.get_full(session, id_)
     crud.payee.delete(session, id_)
+
+    return full_row

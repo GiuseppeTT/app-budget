@@ -4,12 +4,12 @@ from typing import TYPE_CHECKING, Optional
 from sqlmodel import Field, Relationship, SQLModel
 
 if TYPE_CHECKING:
-    from app.model._account import AccountDb
-    from app.model._category import CategoryDb
-    from app.model._payee import PayeeDb
+    from app.model._account import AccountDatabase
+    from app.model._category import CategoryDatabase
+    from app.model._payee import PayeeDatabase
 
 
-class TransactionIn(SQLModel):
+class TransactionInput(SQLModel):
     date_time: datetime = Field(default_factory=datetime.now)
     account_id: Optional[int] = None
     payee_id: Optional[int] = None
@@ -18,7 +18,7 @@ class TransactionIn(SQLModel):
     comment: Optional[str] = None
 
 
-class TransactionDb(SQLModel, table=True):
+class TransactionDatabase(SQLModel, table=True):
     __tablename__ = "transaction"
 
     id: Optional[int] = Field(default=None, primary_key=True)
@@ -29,12 +29,12 @@ class TransactionDb(SQLModel, table=True):
     value: float
     comment: Optional[str] = None
 
-    account: Optional["AccountDb"] = Relationship(back_populates="transactions")
-    payee: Optional["PayeeDb"] = Relationship(back_populates="transactions")
-    category: Optional["CategoryDb"] = Relationship(back_populates="transactions")
+    account: Optional["AccountDatabase"] = Relationship(back_populates="transactions")
+    payee: Optional["PayeeDatabase"] = Relationship(back_populates="transactions")
+    category: Optional["CategoryDatabase"] = Relationship(back_populates="transactions")
 
 
-class TransactionOut(SQLModel):
+class TransactionOutput(SQLModel):
     id: int
     date_time: datetime
     account_id: Optional[int]
