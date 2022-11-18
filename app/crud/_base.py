@@ -54,6 +54,15 @@ class CrudBase(Generic[ModelInput, ModelDatabase, ModelOutput, ModelUpdate], abc
 
         return row
 
+    def is_in_database(self, session: Session, id_: Optional[int], none_ok: bool = False) -> bool:
+        if id_ is None:
+            return none_ok
+
+        row = self.get(session, id_)
+        in_database = row is not None
+
+        return in_database
+
 
 class CrudBaseNamed(CrudBase[ModelInput, ModelDatabase, ModelOutput, ModelUpdate], abc.ABC):
     def get_by_name(self, session: Session, name: str) -> Optional[ModelDatabase]:
