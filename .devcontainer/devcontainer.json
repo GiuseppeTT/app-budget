@@ -5,12 +5,14 @@
 		"ghcr.io/devcontainers/features/node:1": {
 			"version": "none"
 		},
-		"ghcr.io/devcontainers-contrib/features/black:1": {},
-		"ghcr.io/devcontainers-contrib/features/isort:1": {},
-		"ghcr.io/devcontainers-contrib/features/mypy:1": {},
-		"ghcr.io/devcontainers-contrib/features/poetry:1": {},
-		"ghcr.io/devcontainers-contrib/features/pre-commit:1": {},
-		"ghcr.io/devcontainers-contrib/features/pylint:1": {}
+		"ghcr.io/devcontainers-contrib/features/poetry:1": {}
+	},
+	"customizations": {
+		"vscode": {
+			"extensions": [
+				"bungcip.better-toml"
+			]
+		}
 	}
 
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
