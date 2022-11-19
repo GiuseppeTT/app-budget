@@ -11,7 +11,8 @@
 	"customizations": {
 		"vscode": {
 			"extensions": [
-				"bungcip.better-toml"
+				"bungcip.better-toml",
+				"VisualStudioExptTeam.vscodeintellicode"
 			]
 		}
 	}
