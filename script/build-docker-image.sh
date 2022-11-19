@@ -1,3 +1,4 @@
 #!/bin/bash
 
-docker build -t app-budget .
+# you probably need to run `docker login` first
+docker build -t giuseppett/app-budget .
