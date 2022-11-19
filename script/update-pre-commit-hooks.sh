@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pre-commit autoupdate
+poetry run pre-commit autoupdate

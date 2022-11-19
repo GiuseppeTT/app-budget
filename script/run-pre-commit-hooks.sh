@@ -1,3 +1,3 @@
 #!/bin/bash
 
-pre-commit run --all-files
+poetry run pre-commit run --all-files

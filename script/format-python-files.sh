@@ -1,4 +1,4 @@
 #!/bin/bash
 
-isort .
-black .
+poetry run isort app
+poetry run black app

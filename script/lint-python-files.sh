@@ -1,4 +1,3 @@
 #!/bin/bash
 
-pylint .
-mypy .
+poetry run pylint app
