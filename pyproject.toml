@@ -36,4 +36,4 @@ max-line-length = "100"
 [tool.pylint]
 recursive = true
 ignore = "debug.py"
-disable = "R0903, C0114, C0115, C0116"
+disable = "R0903, R0914, C0114, C0115, C0116"
