@@ -65,7 +65,7 @@ After that, you can check the endpoints at `http://localhost:8000/docs`
 
 To build the docker image and run it locally to serve the app, simply run `. script/build-docker-image.sh` and then `. script/run-docker-container.sh`
 
-After that, you can check the endpoints at `TODO`
+After that, you can check the endpoints at `http://0.0.0.0:80/docs` (it maybe another host:port in devcontainer)
 
 ### ... Deploy
 
