@@ -2,15 +2,15 @@
 
 ## Description
 
-This repository holds the source code for a CRUD Web API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here] (TODO).
+This repository holds the source code for App Budget. App Budget is a CRUD Web API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here] (TODO).
 
 ## I'm completely lost, where should I start?
 
-If you want to consume the API, check the API documentation [here] (TODO).
+If you want to **consume the API**, check the API documentation [here] (TODO).
 
-If you want to set up the project on your machine to develop: Check the "... Set up using devcontainer (Option 1)", "... Set up like in the old days (Option 2)" and "... Serve locally" sections.
+If you want to **set up the project** on your machine for developing, check the [... Set up using devcontainer (Option 1)](#set-up-the-project-using-devcontainer-option-1), [... Set up like in the old days (Option 2)](#set-up-the-project-like-in-the-good-ol-days-option-2) and [... Serve locally](#serve-the-app-locally) sections.
 
-If you want to understand the code, you can start at `app/main.py` file and `app/router/` folder.
+If you want to **understand the code**, check the `app/main.py` file and the `app/router/` folder.
 
 ## How to ...
 
