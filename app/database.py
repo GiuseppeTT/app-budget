@@ -1,10 +1,10 @@
 from sqlmodel import Session, SQLModel, create_engine
 
-SQLITE_DB_PATH = "budget.db"
-sqlite_url = f"sqlite:///{SQLITE_DB_PATH}"
+from app.config import settings
 
-connect_args = {"check_same_thread": False}
-engine = create_engine(sqlite_url, connect_args=connect_args)
+CONNECT_ARGS = {"check_same_thread": False}
+
+engine = create_engine(settings.SQLITE_URL, connect_args=CONNECT_ARGS)
 
 
 def create_db_and_tables():
