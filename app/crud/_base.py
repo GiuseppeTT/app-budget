@@ -45,10 +45,10 @@ class CrudBase(Generic[ModelInput, ModelDatabase, ModelOutput, ModelUpdate], abc
 
         if none_ok:
             return row
-        else:
-            assert row is not None
 
-            return row
+        assert row is not None
+
+        return row
 
     def get_many(self, session: Session, skip: int, limit: int) -> list[ModelDatabase]:
         statement = select(self.model_database).offset(skip).limit(limit)

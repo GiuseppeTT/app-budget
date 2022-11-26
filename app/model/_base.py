@@ -7,8 +7,9 @@ class ModelInputBase(SQLModel):
     pass
 
 
+# `id` can be None when not committed, but don't tell mypy 🤫
 class ModelDatabaseBase(SQLModel):
-    id: int = Field(default=None, primary_key=True)  # Can be None when not committed, but don't tell mypy 🤫
+    id: int = Field(default=None, primary_key=True)
 
 
 class ModelOutputBase(SQLModel):
