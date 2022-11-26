@@ -25,9 +25,9 @@ You can develop the project inside a container by following these steps in VSCod
 
 After that, the project will be all set up.
 
-> Note: You may need to install [docker](https://www.docker.com/).
+> **Note:** You may need to install [docker](https://www.docker.com/).
 
-> Note: You can check more instructions on the [devcontainer documentation](https://code.visualstudio.com/docs/devcontainers/containers).
+> **Note:** You can check more instructions on the [devcontainer documentation](https://code.visualstudio.com/docs/devcontainers/containers).
 
 ### ... Set up the project like in the good ol' days (Option 2)
 
@@ -41,7 +41,7 @@ You can develop the project like in the good ol' days by following these steps:
 
 After that, the project will be all set up.
 
-> Note: You may need to run `. script/activate-python-virtual-environment.sh` every time you open the project. Some IDEs allow to permanently set up a python interpreter based on a virtual environment to avoid this work. In this case, select `.venv/bin/python` as your interpreter.
+> **Note:** You may need to run `. script/activate-python-virtual-environment.sh` every time you open the project. Some IDEs allow to permanently set up a python interpreter based on a virtual environment to avoid this work. In this case, select `.venv/bin/python` as your interpreter.
 
 ### ... Test the app
 
