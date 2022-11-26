@@ -1,32 +1,31 @@
-from typing import TYPE_CHECKING, Optional
+from typing import TYPE_CHECKING
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Relationship
+
+from app.model._base import (
+    ModelDatabaseBaseNamed,
+    ModelInputBaseNamed,
+    ModelOutputBaseNamed,
+    ModelUpdateBaseNamed,
+)
 
 if TYPE_CHECKING:
     from app.model._transaction import TransactionDatabase
 
 
-class AccountInput(SQLModel):
-    name: str
+class AccountInput(ModelInputBaseNamed):
+    pass
 
 
-class AccountDatabase(SQLModel, table=True):
+class AccountDatabase(ModelDatabaseBaseNamed, table=True):
     __tablename__ = "account"
-
-    id: Optional[int] = Field(default=None, primary_key=True)
-    name: str = Field(unique=True, index=True)
 
     transactions: list["TransactionDatabase"] = Relationship(back_populates="account")
 
 
-class AccountOutput(SQLModel):
-    id: int
-    name: str
+class AccountOutput(ModelOutputBaseNamed):
     balance: float
 
-    class Config:
-        orm_mode = True
 
-
-class AccountUpdate(SQLModel):
-    name: Optional[str] = None
+class AccountUpdate(ModelUpdateBaseNamed):
+    pass
