@@ -340,7 +340,7 @@ def test_delete_transaction(session: Session, client: TestClient):
     response = client.delete(f"/transaction/{row.id}")
     content = response.json()
 
-    found_row = crud.transaction.get(session, row.id, none_ok=True)
+    in_database = crud.transaction.is_in_database(session, row.id)
 
     assert response.status_code == status.HTTP_200_OK
     assert content["id"] == row.id
@@ -351,7 +351,7 @@ def test_delete_transaction(session: Session, client: TestClient):
     assert content["value"] == row.value
     assert content["comment"] == row.comment
 
-    assert found_row is None
+    assert in_database is False
 
 
 def test_delete_transaction_invalid(session: Session, client: TestClient):

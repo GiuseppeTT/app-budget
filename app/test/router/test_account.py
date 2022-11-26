@@ -130,14 +130,14 @@ def test_delete_account(session: Session, client: TestClient):
     response = client.delete(f"/account/{row.id}")
     content = response.json()
 
-    found_row = crud.account.get(session, row.id, none_ok=True)
+    in_database = crud.account.is_in_database(session, row.id)
 
     assert response.status_code == status.HTTP_200_OK
     assert content["id"] == row.id
     assert content["name"] == input_.name
     assert content["balance"] == 0
 
-    assert found_row is None
+    assert in_database is False
 
 
 def test_delete_account_invalid(session: Session, client: TestClient):

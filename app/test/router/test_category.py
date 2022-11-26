@@ -143,7 +143,7 @@ def test_delete_category(session: Session, client: TestClient):
     response = client.delete(f"/category/{row.id}")
     content = response.json()
 
-    found_row = crud.category.get(session, row.id, none_ok=True)
+    in_database = crud.category.is_in_database(session, row.id)
 
     assert response.status_code == status.HTTP_200_OK
     assert content["id"] == row.id
@@ -152,7 +152,7 @@ def test_delete_category(session: Session, client: TestClient):
     assert content["expenditure"] == 0
     assert content["available"] == input_.budget + 0
 
-    assert found_row is None
+    assert in_database is False
 
 
 def test_delete_category_invalid(session: Session, client: TestClient):
