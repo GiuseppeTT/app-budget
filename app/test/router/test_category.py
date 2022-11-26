@@ -15,11 +15,11 @@ def test_create_category(client: TestClient):
     assert content["name"] == input_json["name"]
     assert content["budget"] == input_json["budget"]
     assert content["expenditure"] == 0
-    assert content["available"] == input_json["budget"] + 0
+    assert content["available"] == input_json["budget"] + 0  # type: ignore
 
 
 def test_create_category_incomplete(client: TestClient):
-    input_json = {}
+    input_json = {}  # type: ignore
     response = client.post("/category/", json=input_json)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
@@ -115,7 +115,7 @@ def test_update_category(session: Session, client: TestClient):
     assert content["name"] == update_json["name"]
     assert content["budget"] == update_json["budget"]
     assert content["expenditure"] == 0
-    assert content["available"] == update_json["budget"] + 0
+    assert content["available"] == update_json["budget"] + 0  # type: ignore
 
     assert content["name"] != input_.name
     assert content["budget"] != input_.budget
@@ -143,7 +143,7 @@ def test_delete_category(session: Session, client: TestClient):
     response = client.delete(f"/category/{row.id}")
     content = response.json()
 
-    found_row = crud.category.get(session, row.id)
+    found_row = crud.category.get(session, row.id, none_ok=True)
 
     assert response.status_code == status.HTTP_200_OK
     assert content["id"] == row.id

@@ -17,7 +17,7 @@ def test_create_account(client: TestClient):
 
 
 def test_create_account_incomplete(client: TestClient):
-    input_json = {}
+    input_json = {}  # type: ignore
     response = client.post("/account/", json=input_json)
 
     assert response.status_code == status.HTTP_422_UNPROCESSABLE_ENTITY
@@ -130,7 +130,7 @@ def test_delete_account(session: Session, client: TestClient):
     response = client.delete(f"/account/{row.id}")
     content = response.json()
 
-    found_row = crud.account.get(session, row.id)
+    found_row = crud.account.get(session, row.id, none_ok=True)
 
     assert response.status_code == status.HTTP_200_OK
     assert content["id"] == row.id

@@ -1,7 +1,9 @@
 from datetime import datetime
 from typing import TYPE_CHECKING, Optional
 
-from sqlmodel import Field, Relationship, SQLModel
+from sqlmodel import Field, Relationship
+
+from app.model._base import ModelDatabaseBase, ModelInputBase, ModelOutputBase, ModelUpdateBase
 
 if TYPE_CHECKING:
     from app.model._account import AccountDatabase
@@ -9,7 +11,7 @@ if TYPE_CHECKING:
     from app.model._payee import PayeeDatabase
 
 
-class TransactionInput(SQLModel):
+class TransactionInput(ModelInputBase):
     date_time: datetime = Field(default_factory=datetime.now)
     account_id: Optional[int] = None
     payee_id: Optional[int] = None
@@ -18,10 +20,9 @@ class TransactionInput(SQLModel):
     comment: Optional[str] = None
 
 
-class TransactionDatabase(SQLModel, table=True):
+class TransactionDatabase(ModelDatabaseBase, table=True):
     __tablename__ = "transaction"
 
-    id: Optional[int] = Field(default=None, primary_key=True)
     date_time: datetime = Field(default_factory=datetime.now)
     account_id: Optional[int] = Field(default=None, foreign_key="account.id")
     payee_id: Optional[int] = Field(default=None, foreign_key="payee.id")
@@ -34,8 +35,7 @@ class TransactionDatabase(SQLModel, table=True):
     category: Optional["CategoryDatabase"] = Relationship(back_populates="transactions")
 
 
-class TransactionOutput(SQLModel):
-    id: int
+class TransactionOutput(ModelOutputBase):
     date_time: datetime
     account_id: Optional[int]
     payee_id: Optional[int]
@@ -43,11 +43,8 @@ class TransactionOutput(SQLModel):
     value: float
     comment: Optional[str]
 
-    class Config:
-        orm_mode = True
 
-
-class TransactionUpdate(SQLModel):
+class TransactionUpdate(ModelUpdateBase):
     date_time: Optional[datetime] = None
     account_id: Optional[int] = None
     payee_id: Optional[int] = None
