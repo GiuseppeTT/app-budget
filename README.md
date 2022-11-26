@@ -87,12 +87,13 @@ TODO.
 │   ├── model                # Model's code (input data, output data, database data and update data)
 │   ├── router               # Endpoints's code
 │   └── test                 # App's tests
-│       ├── crud             # CRUD's tests
 │       └── router           # Endpoints's tests
+│   ├── database.py          # App's configurations
 │   ├── database.py          # Database's code
 │   ├── dependency.py        # Dependency injection's code
 │   └── main.py              # Responsible for defining the app and connecting all the app's code
 ├── script/                  # Auxiliary scripts
+├── .env                     # List of public environment variables
 ├── .gitignore               # List of files ignored by git
 ├── .pre-commit-config.yaml  # pre-commit's config
 ├── Dockerfile               # Docker image instructions
