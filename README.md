@@ -88,7 +88,7 @@ TODO.
 │   ├── router               # Endpoints's code
 │   └── test                 # App's tests
 │       └── router           # Endpoints's tests
-│   ├── database.py          # App's configurations
+│   ├── config.py            # App's configurations
 │   ├── database.py          # Database's code
 │   ├── dependency.py        # Dependency injection's code
 │   └── main.py              # Responsible for defining the app and connecting all the app's code
