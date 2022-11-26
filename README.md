@@ -86,7 +86,7 @@ TODO.
 │   ├── crud/                # CRUD's code
 │   ├── model/               # Model's code (input data, output data, database data and update data)
 │   ├── router/              # Endpoints's code
-│   └── test/                # App's tests
+│   ├── test/                # App's tests
 │   ├── config.py            # App's configurations
 │   ├── database.py          # Database's code
 │   ├── dependency.py        # Dependency injection's code
