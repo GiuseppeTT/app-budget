@@ -82,12 +82,11 @@ TODO.
 ├── .pytest_cache/           # [Git ignored] [Auto generated] Pytest's cache
 ├── .venv/                   # [Git ignored] [Auto generated] Python virtual environment
 ├── .vscode/                 # VSCode's config
-├── app                      # App's code
-│   ├── crud                 # CRUD's code
-│   ├── model                # Model's code (input data, output data, database data and update data)
-│   ├── router               # Endpoints's code
-│   └── test                 # App's tests
-│       └── router           # Endpoints's tests
+├── app/                     # App's code
+│   ├── crud/                # CRUD's code
+│   ├── model/               # Model's code (input data, output data, database data and update data)
+│   ├── router/              # Endpoints's code
+│   └── test/                # App's tests
 │   ├── config.py            # App's configurations
 │   ├── database.py          # Database's code
 │   ├── dependency.py        # Dependency injection's code
