@@ -2,7 +2,7 @@
 
 ## Description
 
-This repository holds the source code for App Budget. App Budget is a CRUD Web API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here] (TODO).
+This repository holds the source code for App Budget. App Budget is a CRUD API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here] (TODO).
 
 ## I'm completely lost, where should I start?
 
