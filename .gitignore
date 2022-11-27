@@ -1,6 +1,7 @@
 __pycache__/
 .mypy_cache/
 .pytest_cache/
-.venv
-*.db
+.venv/
+.env
 debug.py
+*.db
