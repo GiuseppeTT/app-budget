@@ -84,7 +84,7 @@ TODO.
 ├── .vscode/                 # VSCode's config
 ├── app/                     # App's code
 │   ├── crud/                # CRUD's code
-│   ├── model/               # Model's code (input data, output data, database data and update data)
+│   ├── model/               # Model's code (input data, database data, output data, and update data)
 │   ├── router/              # Endpoints's code
 │   ├── test/                # App's tests
 │   ├── config.py            # App's configurations
@@ -92,7 +92,8 @@ TODO.
 │   ├── dependency.py        # Dependency injection's code
 │   └── main.py              # Responsible for defining the app and connecting all the app's code
 ├── script/                  # Auxiliary scripts
-├── .env                     # List of public environment variables
+├── .env                     # [Git ignored] List of public environment variables
+├── .env.example             # Example of .env file
 ├── .gitignore               # List of files ignored by git
 ├── .pre-commit-config.yaml  # pre-commit's config
 ├── Dockerfile               # Docker image instructions
