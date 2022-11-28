@@ -45,15 +45,23 @@ After that, the project will be all set up.
 
 ### ... Test the app
 
-To test the app, simply run `. script/test-app.sh`
+To test the app locally, simply run `. script/test-app.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the app at any push to main or open pull request.
 
 ### ... Lint / format the pythons files
 
-To format the python files, simply run `. script/format-python-files.sh`
+To format the python files locally, simply run `. script/format-python-files.sh`
 
-To lint the python files, simply run `. script/lint-python-files.sh`
+> **Note:** There is a CI/CD workflow (`.github/workflows/run-pre-commit-hooks.yaml`) set up to run the pre-commit hooks (which include a check for format consistency) at any push to main or open pull request.
 
-To lint the python types, simply run `. script/lint-python-types.sh`
+To lint the python files locally, simply run `. script/lint-python-files.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-files.yaml`) set up to lint the python files at any push to main or open pull request.
+
+To lint the python types locally, simply run `. script/lint-python-types.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-types.yaml`) set up to lint the python types at any push to main or open pull request.
 
 ### ... Serve the app locally
 
