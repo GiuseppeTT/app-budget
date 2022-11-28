@@ -2,7 +2,7 @@
 
 ## Description
 
-This repository holds the source code for App Budget. App Budget is a CRUD API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here](http://app-budget.eastus.azurecontainer.io/docs).
+This repository holds the source code for App Budget. App Budget is a CRUD API that I created for transaction tracking and budgeting using Python, FastAPI, SQL and PostgreSQL. It is deployed to Azure using docker and GitHub Actions. You can access the API documentation [here](http://app-budget.eastus.azurecontainer.io/docs).
 
 ## I'm completely lost, where should I start?
 
@@ -47,11 +47,11 @@ After that, the project will be all set up.
 
 > **Note:** You may need to run `. script/activate-python-virtual-environment.sh` every time you open the project. Some IDEs allow to permanently set up a python interpreter based on a virtual environment to avoid this work. In this case, select `.venv/bin/python` as your interpreter.
 
-### ... Test the app
+### ... Test the API
 
-To test the app locally, simply run `. script/test-app.sh`
+To test the API locally, simply run `. script/test-app.sh`
 
-> **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the app at any push to main or open pull request.
+> **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the API at any push to main or open pull request.
 
 ### ... Lint / format the pythons files
 
@@ -67,21 +67,21 @@ To lint the python types locally, simply run `. script/lint-python-types.sh`
 
 > **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-types.yaml`) set up to lint the python types at any push to main or open pull request.
 
-### ... Serve the app locally
+### ... Serve the API locally
 
-To serve the app locally, simply run `. script/serve-app-locally.sh`
+To serve the API locally, simply run `. script/serve-app-locally.sh`
 
 After that, you can check the endpoints at `http://localhost:8000/docs`
 
 ### ... Build the docker image and run locally
 
-To build the docker image and run it locally to serve the app, simply run `. script/build-docker-image.sh` and then `. script/run-docker-container.sh`
+To build the docker image and run it locally to serve the API, simply run `. script/build-docker-image.sh` and then `. script/run-docker-container.sh`
 
 After that, you can check the endpoints at `http://0.0.0.0:80/docs` (it maybe another host:port in devcontainer)
 
 ### ... Deploy
 
-There is no manual deployment. The app is automatically deployed to Azure everytime a commit is pushed to main (only possible through pull requests). You can check the CI/CD workflow responsible for that at `.github/workflows/deploy-app.yaml`
+There is no manual deployment. The API is automatically deployed to Azure everytime a commit is pushed to main (only possible through pull requests). You can check the CI/CD workflow responsible for that at `.github/workflows/deploy-app.yaml`
 
 ## Project structure
 
@@ -111,7 +111,6 @@ There is no manual deployment. The app is automatically deployed to Azure everyt
 ├── Dockerfile               # Docker image instructions
 ├── LICENSE                  # Project's license
 ├── README.md                # This very file you are reading
-├── budget.db                # [Git ignored] [Auto generated] SQLite database
 ├── debug.py                 # [Git ignored] An auxiliary script for debugging, like a whiteboard
 ├── poetry.lock              # [Auto generated] Python dependency versions
 ├── poetry.toml              # [Auto generated] Poetry's config
