@@ -40,4 +40,5 @@ jobs:
           registry-username: ${{ secrets.REGISTRY_USERNAME }}
           registry-password: ${{ secrets.REGISTRY_PASSWORD }}
           name: ${{ secrets.CONTAINER_NAME }}
+          secure-environment-variables: SQLITE_URL=${{ secrets.SQLITE_URL }}
           location: east us
