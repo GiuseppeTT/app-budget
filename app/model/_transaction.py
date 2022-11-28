@@ -37,11 +37,11 @@ class TransactionDatabase(ModelDatabaseBase, table=True):
 
 class TransactionOutput(ModelOutputBase):
     date_time: datetime
-    account_id: Optional[int]
-    payee_id: Optional[int]
-    category_id: Optional[int]
+    account_id: Optional[int] = None
+    payee_id: Optional[int] = None
+    category_id: Optional[int] = None
     value: float
-    comment: Optional[str]
+    comment: Optional[str] = None
 
 
 class TransactionUpdate(ModelUpdateBase):

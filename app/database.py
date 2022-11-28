@@ -2,9 +2,9 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from app.config import settings
 
-CONNECT_ARGS = {"check_same_thread": False}
+assert settings.PROD_DB_URL is not None
 
-engine = create_engine(settings.SQLITE_URL, connect_args=CONNECT_ARGS)
+engine = create_engine(settings.PROD_DB_URL)
 
 
 def create_db_and_tables():

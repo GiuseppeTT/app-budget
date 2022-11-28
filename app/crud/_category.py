@@ -11,7 +11,9 @@ class CrudCategory(
 ):
     def get_full(self, session: Session, id_: int):
         budget = self.model_database.budget
-        expenditure = func.ifnull(func.sum(model.TransactionDatabase.value), 0).label("expenditure")
+        expenditure = func.coalesce(func.sum(model.TransactionDatabase.value), 0).label(
+            "expenditure"
+        )
         available = (budget + expenditure).label("available")
         row = self._get_full(session, id_, budget, expenditure, available)
 
@@ -19,7 +21,9 @@ class CrudCategory(
 
     def get_many_full(self, session: Session, skip: int, limit: int):
         budget = self.model_database.budget
-        expenditure = func.ifnull(func.sum(model.TransactionDatabase.value), 0).label("expenditure")
+        expenditure = func.coalesce(func.sum(model.TransactionDatabase.value), 0).label(
+            "expenditure"
+        )
         available = (budget + expenditure).label("available")
         rows = self._get_many_full(session, skip, limit, budget, expenditure, available)
 

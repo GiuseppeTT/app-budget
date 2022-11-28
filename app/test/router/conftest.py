@@ -3,17 +3,17 @@ from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
 from sqlmodel.pool import StaticPool
 
+from app.config import settings
 from app.dependency import get_session
 from app.main import app
 
 
 @pytest.fixture(name="session")
 def session_fixture():
-    sqlite_url = "sqlite://"
-    connect_args = {"check_same_thread": False}
-    engine = create_engine(sqlite_url, connect_args=connect_args, poolclass=StaticPool)
+    engine = create_engine(settings.TEST_DB_URL, poolclass=StaticPool)
 
-    SQLModel.metadata.create_all(engine)
+    SQLModel.metadata.drop_all(bind=engine)
+    SQLModel.metadata.create_all(bind=engine)
 
     with Session(engine) as session:
         yield session
