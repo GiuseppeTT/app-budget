@@ -2,11 +2,11 @@
 
 ## Description
 
-This repository holds the source code for App Budget. App Budget is a CRUD API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here] (TODO).
+This repository holds the source code for App Budget. App Budget is a CRUD API that I created for transaction tracking and budgeting using Python, FastAPI and SQL. It is deployed to Azure using docker and GitHub Actions. You can access the app documentation [here](http://app-budget.eastus.azurecontainer.io/docs).
 
 ## I'm completely lost, where should I start?
 
-If you want to **consume the API**, check the API documentation [here] (TODO).
+If you want to **consume the API**, check the API documentation [here](http://app-budget.eastus.azurecontainer.io/docs).
 
 If you want to **set up the project** on your machine for developing, check the [... Set up using devcontainer (Option 1)](#set-up-the-project-using-devcontainer-option-1), [... Set up like in the old days (Option 2)](#set-up-the-project-like-in-the-good-ol-days-option-2) and [... Serve locally](#serve-the-app-locally) sections.
 
@@ -45,15 +45,23 @@ After that, the project will be all set up.
 
 ### ... Test the app
 
-To test the app, simply run `. script/test-app.sh`
+To test the app locally, simply run `. script/test-app.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the app at any push to main or open pull request.
 
 ### ... Lint / format the pythons files
 
-To format the python files, simply run `. script/format-python-files.sh`
+To format the python files locally, simply run `. script/format-python-files.sh`
 
-To lint the python files, simply run `. script/lint-python-files.sh`
+> **Note:** There is a CI/CD workflow (`.github/workflows/run-pre-commit-hooks.yaml`) set up to run the pre-commit hooks (which include a check for format consistency) at any push to main or open pull request.
 
-To lint the python types, simply run `. script/lint-python-types.sh`
+To lint the python files locally, simply run `. script/lint-python-files.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-files.yaml`) set up to lint the python files at any push to main or open pull request.
+
+To lint the python types locally, simply run `. script/lint-python-types.sh`
+
+> **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-types.yaml`) set up to lint the python types at any push to main or open pull request.
 
 ### ... Serve the app locally
 
@@ -69,7 +77,7 @@ After that, you can check the endpoints at `http://0.0.0.0:80/docs` (it maybe an
 
 ### ... Deploy
 
-TODO.
+There is no manual deployment. The app is automatically deployed to Azure everytime a commit is pushed to main (only possible through pull requests). You can check the CI/CD workflow responsible for that at `.github/workflows/deploy-app.yaml`
 
 ## Project structure
 
