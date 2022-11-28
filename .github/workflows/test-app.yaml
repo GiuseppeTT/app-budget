@@ -24,5 +24,7 @@ jobs:
           poetry install --no-root
 
       - name: Test app
+        env:
+          SQLITE_URL: ${{ secrets.SQLITE_URL }}
         run: |
           poetry run pytest
