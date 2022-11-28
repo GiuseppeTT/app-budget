@@ -10,6 +10,7 @@ packages = [{include = "app_budget"}]
 python = "^3.11"
 fastapi = {extras = ["all"], version = "^0.87.0"}
 sqlmodel = {extras = ["all"], version = "^0.0.8"}
+psycopg2 = "^2.9.5"
 
 [tool.poetry.group.dev.dependencies]
 ipython = "^8.6.0"
@@ -26,6 +27,7 @@ build-backend = "poetry.core.masonry.api"
 
 [tool.black]
 line-length = 100
+skip-magic-trailing-comma = true
 
 [tool.isort]
 profile = "black"

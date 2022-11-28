@@ -78,7 +78,9 @@ class CrudBase(Generic[ModelInput, ModelDatabase, ModelOutput, ModelUpdate], abc
 
         return row
 
-    def is_in_database(self, session: Session, id_: Optional[int], none_ok: bool = False) -> bool:
+    def is_in_database(
+        self, session: Session, id_: Optional[int] = None, none_ok: bool = False
+    ) -> bool:
         if id_ is None:
             return none_ok
 
@@ -107,6 +109,7 @@ class CrudBaseNamed(
             select(self.model_database.id, self.model_database.name, *args)
             .join(model.TransactionDatabase, isouter=True)
             .where(self.model_database.id == id_)
+            .group_by(self.model_database.id)
         )
         result = session.exec(statement)
         row = result.first()
@@ -122,6 +125,7 @@ class CrudBaseNamed(
             select(self.model_database.id, self.model_database.name, *args)
             .join(model.TransactionDatabase, isouter=True)
             .group_by(self.model_database.id)
+            .order_by(self.model_database.id)
             .offset(skip)
             .limit(limit)
         )
