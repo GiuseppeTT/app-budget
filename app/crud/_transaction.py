@@ -1,9 +1,9 @@
 from app import model
-from app.crud._base import CrudBase
+from app.crud._crud import Crud
 
 
 class CrudTransaction(
-    CrudBase[
+    Crud[
         model.TransactionInput,
         model.TransactionDatabase,
         model.TransactionOutput,

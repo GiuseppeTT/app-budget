@@ -1,11 +1,11 @@
 from sqlmodel import Session, func
 
 from app import model
-from app.crud._base import CrudBaseNamed
+from app.crud._named_crud import NamedCrud
 
 
 class CrudPayee(
-    CrudBaseNamed[model.PayeeInput, model.PayeeDatabase, model.PayeeOutput, model.PayeeUpdate]
+    NamedCrud[model.PayeeInput, model.PayeeDatabase, model.PayeeOutput, model.PayeeUpdate]
 ):
     def get_full(self, session: Session, id_: int):
         expenditure = func.coalesce(func.sum(model.TransactionDatabase.value), 0).label(
