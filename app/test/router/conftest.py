@@ -10,7 +10,7 @@ from app.main import app
 
 @pytest.fixture(name="session")
 def session_fixture():
-    engine = create_engine(settings.TEST_DB_URL, poolclass=StaticPool)
+    engine = create_engine(settings.TEST_DATABASE_URL, poolclass=StaticPool)
 
     SQLModel.metadata.drop_all(bind=engine)
     SQLModel.metadata.create_all(bind=engine)

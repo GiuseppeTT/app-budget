@@ -2,30 +2,30 @@ from typing import TYPE_CHECKING
 
 from sqlmodel import Relationship
 
-from app.model._base import (
-    ModelDatabaseBaseNamed,
-    ModelInputBaseNamed,
-    ModelOutputBaseNamed,
-    ModelUpdateBaseNamed,
+from app.model._named_model import (
+    NamedModelDatabase,
+    NamedModelInput,
+    NamedModelOutput,
+    NamedModelUpdate,
 )
 
 if TYPE_CHECKING:
     from app.model._transaction import TransactionDatabase
 
 
-class PayeeInput(ModelInputBaseNamed):
+class PayeeInput(NamedModelInput):
     pass
 
 
-class PayeeDatabase(ModelDatabaseBaseNamed, table=True):
+class PayeeDatabase(NamedModelDatabase, table=True):
     __tablename__ = "payee"
 
     transactions: list["TransactionDatabase"] = Relationship(back_populates="payee")
 
 
-class PayeeOutput(ModelOutputBaseNamed):
+class PayeeOutput(NamedModelOutput):
     expenditure: float
 
 
-class PayeeUpdate(ModelUpdateBaseNamed):
+class PayeeUpdate(NamedModelUpdate):
     pass

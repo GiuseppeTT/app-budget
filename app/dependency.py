@@ -1,12 +1,8 @@
-from typing import TypeVar
-
 from fastapi import Depends, HTTPException, status
 from sqlmodel import Session
 
-from app.crud import CrudBase
+from app.crud import Crud
 from app.database import get_session
-
-Crud = TypeVar("Crud", bound=CrudBase)
 
 
 class ExistentIdChecker:

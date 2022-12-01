@@ -2,12 +2,12 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from app.config import settings
 
-assert settings.PROD_DB_URL is not None
+assert settings.PROD_DATABASE_URL is not None
 
-engine = create_engine(settings.PROD_DB_URL)
+engine = create_engine(settings.PROD_DATABASE_URL)
 
 
-def create_db_and_tables():
+def create_database_and_tables():
     SQLModel.metadata.create_all(engine)
 
 

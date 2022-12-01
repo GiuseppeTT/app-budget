@@ -1,11 +1,11 @@
 from sqlmodel import Session, func
 
 from app import model
-from app.crud._base import CrudBaseNamed
+from app.crud._named_crud import NamedCrud
 
 
 class CrudCategory(
-    CrudBaseNamed[
+    NamedCrud[
         model.CategoryInput, model.CategoryDatabase, model.CategoryOutput, model.CategoryUpdate
     ]
 ):

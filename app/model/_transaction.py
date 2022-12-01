@@ -3,7 +3,7 @@ from typing import TYPE_CHECKING, Optional
 
 from sqlmodel import Field, Relationship
 
-from app.model._base import ModelDatabaseBase, ModelInputBase, ModelOutputBase, ModelUpdateBase
+from app.model._model import ModelDatabase, ModelInput, ModelOutput, ModelUpdate
 
 if TYPE_CHECKING:
     from app.model._account import AccountDatabase
@@ -11,7 +11,7 @@ if TYPE_CHECKING:
     from app.model._payee import PayeeDatabase
 
 
-class TransactionInput(ModelInputBase):
+class TransactionInput(ModelInput):
     date_time: datetime = Field(default_factory=datetime.now)
     account_id: Optional[int] = None
     payee_id: Optional[int] = None
@@ -20,7 +20,7 @@ class TransactionInput(ModelInputBase):
     comment: Optional[str] = None
 
 
-class TransactionDatabase(ModelDatabaseBase, table=True):
+class TransactionDatabase(ModelDatabase, table=True):
     __tablename__ = "transaction"
 
     date_time: datetime = Field(default_factory=datetime.now)
@@ -35,7 +35,7 @@ class TransactionDatabase(ModelDatabaseBase, table=True):
     category: Optional["CategoryDatabase"] = Relationship(back_populates="transactions")
 
 
-class TransactionOutput(ModelOutputBase):
+class TransactionOutput(ModelOutput):
     date_time: datetime
     account_id: Optional[int] = None
     payee_id: Optional[int] = None
@@ -44,7 +44,7 @@ class TransactionOutput(ModelOutputBase):
     comment: Optional[str] = None
 
 
-class TransactionUpdate(ModelUpdateBase):
+class TransactionUpdate(ModelUpdate):
     date_time: Optional[datetime] = None
     account_id: Optional[int] = None
     payee_id: Optional[int] = None

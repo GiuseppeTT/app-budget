@@ -1,13 +1,11 @@
 from sqlmodel import Session, func
 
 from app import model
-from app.crud._base import CrudBaseNamed
+from app.crud._named_crud import NamedCrud
 
 
 class CrudAccount(
-    CrudBaseNamed[
-        model.AccountInput, model.AccountDatabase, model.AccountOutput, model.AccountUpdate
-    ]
+    NamedCrud[model.AccountInput, model.AccountDatabase, model.AccountOutput, model.AccountUpdate]
 ):
     def get_full(self, session: Session, id_: int):
         balance = func.coalesce(func.sum(model.TransactionDatabase.value), 0).label("balance")

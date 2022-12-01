@@ -11,7 +11,6 @@ router = APIRouter(
     responses={status.HTTP_404_NOT_FOUND: {"description": "Not found"}},
 )
 
-
 check_existent_id = ExistentIdChecker("Payee", crud.payee)
 
 
