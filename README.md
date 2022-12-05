@@ -66,7 +66,7 @@ After that, you can check the endpoints at `http://0.0.0.0:80/docs` (it maybe an
 
 ### ... Deploy
 
-There is no manual deployment. The API is automatically deployed to Azure everytime a commit is pushed to main (only possible through pull requests). You can check the CI/CD workflow responsible for that at `.github/workflows/deploy-app.yaml`
+There is no manual deployment. The API is automatically deployed to Azure every time a commit is pushed to main (only possible through pull requests). You can check the CI/CD workflow responsible for that at `.github/workflows/deploy-app.yaml`
 
 ## Project structure
 
