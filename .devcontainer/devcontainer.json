@@ -20,6 +20,10 @@
 	// Use 'forwardPorts' to make a list of ports inside the container available locally.
 	// "forwardPorts": [],
 
+	// Load environment variables
+	// https://code.visualstudio.com/remote/advancedcontainers/environment-variables
+	"runArgs": ["--env-file", ".env"],
+
 	// Use 'postCreateCommand' to run commands after the container is created.
 	"postCreateCommand": ". .devcontainer/run-post-create-commands.sh"
 
