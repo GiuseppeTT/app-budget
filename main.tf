@@ -29,6 +29,7 @@ resource "azurerm_postgresql_flexible_server_database" "test" {
   server_id = azurerm_postgresql_flexible_server.this.id
 }
 
+# Equivalent to "Allow access to Azure services"
 resource "azurerm_postgresql_flexible_server_firewall_rule" "this" {
   name             = "${var.prefix}-postgresql-flexible-server-firewall-rule"
   server_id        = azurerm_postgresql_flexible_server.this.id
@@ -53,10 +54,10 @@ resource "azurerm_container_registry_task" "this" {
   }
 
   docker_step {
-    context_access_token = "fake-repo-is-public"
-    context_path         = "https://github.com/GiuseppeTT/app-budget"
+    context_access_token = var.project_repository_token
+    context_path         = var.project_repository_url
     dockerfile_path      = "Dockerfile"
-    image_names          = ["${azurerm_container_registry.this.login_server}/${var.prefix}"]
+    image_names          = ["${azurerm_container_registry.this.login_server}/${var.prefix}:${var.docker_image_tag}"]
   }
 }
 
@@ -80,7 +81,7 @@ resource "azurerm_container_group" "this" {
 
   container {
     name   = var.prefix
-    image  = "${azurerm_container_registry_task.this.docker_step[0].image_names[0]}:latest"
+    image  = azurerm_container_registry_task.this.docker_step[0].image_names[0]
     cpu    = "1"
     memory = "1"
 
