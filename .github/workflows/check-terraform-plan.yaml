@@ -23,6 +23,12 @@ jobs:
       - name: Initialize Terraform
         run: terraform init
 
+      - name: Validate Terraform's files
+        env:
+          TF_VAR_database_username: ${{ secrets.REGISTRY_USERNAME }}
+          TF_VAR_database_password: ${{ secrets.REGISTRY_PASSWORD }}
+        run: terraform validate
+
       - name: Generate terraform plan
         env:
           TF_VAR_database_username: ${{ secrets.REGISTRY_USERNAME }}
