@@ -1,23 +1,23 @@
 variable "prefix" {
-  description = "The prefix used for all resources"
+  default     = "app-budget"
   type        = string
-  default     = "test-app-budget"
+  description = "The prefix used for all resources"
 }
 
 variable "location" {
-  description = "The Azure location used for all resources"
-  type        = string
   default     = "east us"
+  type        = string
+  description = "The Azure location used for all resources"
 }
 
 variable "database_username" {
-  description = "Database administrator username"
   type        = string
+  description = "Database administrator username"
   sensitive   = true
 }
 
 variable "database_password" {
-  description = "Database administrator password"
   type        = string
+  description = "Database administrator password"
   sensitive   = true
 }

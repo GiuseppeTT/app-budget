@@ -11,7 +11,7 @@ terraform {
   cloud {
     organization = "giutt-org"
     workspaces {
-      name = "test-app-budget-terraform-cloud-workspace"
+      name = "app-budget-terraform-cloud-workspace"
     }
   }
 }
