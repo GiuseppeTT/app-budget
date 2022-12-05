@@ -104,5 +104,5 @@ There is no manual deployment. The API is automatically deployed to Azure every 
 ├── variables.tf             # Terraform's code, variables, some of them are sensitive and provided through environment variables
 ├── poetry.lock              # [Auto generated] Python dependency versions
 ├── poetry.toml              # [Auto generated] Poetry's configurations
-├── pyproject.toml           # Project's configurations
+└── pyproject.toml           # Project's configurations
 ```
