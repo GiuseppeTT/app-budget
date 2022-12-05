@@ -23,7 +23,7 @@
 
 	// Set up devcontainer after container is created
 	// https://code.visualstudio.com/docs/devcontainers/create-dev-container#_rebuild
-	"postCreateCommand": ". .devcontainer/run-post-create-commands.sh"
+	"postCreateCommand": ". .devcontainer/run-post-create-set-up.sh"
 
 	// Uncomment to connect as root instead
 	// https://aka.ms/dev-containers-non-root.
