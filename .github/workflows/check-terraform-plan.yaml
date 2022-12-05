@@ -24,4 +24,7 @@ jobs:
         run: terraform init
 
       - name: Generate terraform plan
+        env:
+          TF_VAR_database_username: ${{ secrets.REGISTRY_USERNAME }}
+          TF_VAR_database_password: ${{ secrets.REGISTRY_PASSWORD }}
         run: terraform plan -input=false
