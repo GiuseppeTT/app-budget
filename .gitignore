@@ -1,6 +1,10 @@
 __pycache__/
 .mypy_cache/
 .pytest_cache/
+.terraform/
 .venv/
 .env
 debug.py
+secret.tfvars
+*.tfstate.backup
+*.tfstate
