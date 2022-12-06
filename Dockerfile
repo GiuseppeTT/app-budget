@@ -14,7 +14,7 @@ COPY ./pyproject.toml ./poetry.lock* /tmp/
 
 RUN poetry export -f requirements.txt --output requirements.txt --without-hashes
 
-# Install dependencies and copy app
+# Install python dependencies and copy app
 FROM python:${VARIANT}
 
 WORKDIR /code
