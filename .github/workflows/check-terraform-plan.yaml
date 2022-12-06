@@ -34,14 +34,14 @@ jobs:
         env:
           TF_VAR_database_username: ${{ secrets.REGISTRY_USERNAME }}
           TF_VAR_database_password: ${{ secrets.REGISTRY_PASSWORD }}
-        run: terraform validate
+        run: terraform validate -no-color
 
       - name: Generate terraform plan
         id: plan
         env:
           TF_VAR_database_username: ${{ secrets.REGISTRY_USERNAME }}
           TF_VAR_database_password: ${{ secrets.REGISTRY_PASSWORD }}
-        run: terraform plan -input=false
+        run: terraform plan -no-color
 
       - name: Geneta summary
         run: |
