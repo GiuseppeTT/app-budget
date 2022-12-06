@@ -97,12 +97,12 @@ There is no manual deployment. The API is automatically deployed to Azure every 
 ├── .terraform.lock.hcl      # [Auto generated] Terraform's lock file
 ├── Dockerfile               # Docker image instructions
 ├── LICENSE                  # Project's license
+├── poetry.lock              # [Auto generated] Python dependency versions
 ├── README.md                # This very file you are reading
 ├── debug.py                 # [Git ignored] An auxiliary script for debugging, like a whiteboard
 ├── main.tf                  # Terraform's code, cloud resources
 ├── outputs.tf               # Terraform's code, outputs
 ├── variables.tf             # Terraform's code, variables, some of them are sensitive and provided through environment variables
-├── poetry.lock              # [Auto generated] Python dependency versions
 ├── poetry.toml              # [Auto generated] Poetry's configurations
 └── pyproject.toml           # Project's configurations
 ```

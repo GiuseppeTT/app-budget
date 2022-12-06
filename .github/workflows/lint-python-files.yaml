@@ -18,11 +18,11 @@ jobs:
         with:
           python-version: "3.11"
 
-      - name: Install dependencies
+      - name: Install python dependencies
         run: |
           python -m pip install poetry
           poetry install --no-root
 
-      - name: Lint
+      - name: Lint python files
         run: |
           poetry run pylint app
