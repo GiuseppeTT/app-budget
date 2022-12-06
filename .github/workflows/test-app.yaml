@@ -24,8 +24,11 @@ jobs:
       - name: Initialize Terraform
         run: terraform init
 
-      - name: Set database FQDN environment variable
-        run: echo "DATABASE_FQDN=$(terraform output -raw database_fqdn)" >> $GITHUB_ENV
+      - name: Set database environment variables
+        run: |
+          echo "DATABASE_USERNAME=$(terraform output -raw database_username)" >> $GITHUB_ENV
+          echo "DATABASE_PASSWORD=$(terraform output -raw database_password)" >> $GITHUB_ENV
+          echo "DATABASE_FQDN=$(terraform output -raw database_fqdn)" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v4
@@ -39,7 +42,8 @@ jobs:
 
       - name: Test app
         env:
-          TEST_DATABASE_URL: postgresql://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ env.DATABASE_FQDN }}:5432/test?sslmode=require
-          PROD_DATABASE_URL: postgresql://${{ secrets.DATABASE_USERNAME }}:${{ secrets.DATABASE_PASSWORD }}@${{ env.DATABASE_FQDN }}:5432/prod?sslmode=require  # Mock prod database since we are only testing
+          DATABASE_USERNAME: ${{ env.DATABASE_USERNAME }}
+          DATABASE_PASSWORD: ${{ env.DATABASE_PASSWORD }}
+          DATABASE_FQDN: ${{ env.DATABASE_FQDN }}
         run: |
           poetry run pytest

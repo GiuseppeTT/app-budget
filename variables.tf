@@ -10,18 +10,6 @@ variable "location" {
   description = "The Azure location used for all resources"
 }
 
-variable "database_username" {
-  type        = string
-  description = "The database administrator username"
-  sensitive   = true
-}
-
-variable "database_password" {
-  type        = string
-  description = "The database administrator password"
-  sensitive   = true
-}
-
 variable "project_repository_url" {
   default     = "https://github.com/GiuseppeTT/app-budget"
   type        = string

@@ -2,9 +2,8 @@ from sqlmodel import Session, SQLModel, create_engine
 
 from app.config import settings
 
-assert settings.PROD_DATABASE_URL is not None
-
-engine = create_engine(settings.PROD_DATABASE_URL)
+database_url = f"postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.DATABASE_FQDN}:5432/prod?sslmode=require"
+engine = create_engine(database_url)
 
 
 def create_database_and_tables():

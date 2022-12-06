@@ -1,18 +1,34 @@
-provider "azurerm" {
-  features {}
-}
-
 resource "azurerm_resource_group" "this" {
   name     = "${var.prefix}-resource-group"
   location = var.location
+}
+
+resource "random_string" "this" {
+  length  = 32
+  lower   = true
+  numeric = true
+  special = false
+  upper   = true
+}
+
+resource "random_password" "this" {
+  length      = 32
+  lower       = true
+  min_lower   = 1
+  min_numeric = 1
+  min_special = 1
+  min_upper   = 1
+  numeric     = true
+  special     = true
+  upper       = true
 }
 
 resource "azurerm_postgresql_flexible_server" "this" {
   name                   = "${var.prefix}-postgresql-flexible-server"
   resource_group_name    = azurerm_resource_group.this.name
   location               = azurerm_resource_group.this.location
-  administrator_login    = var.database_username
-  administrator_password = var.database_password
+  administrator_login    = random_string.this.result
+  administrator_password = random_password.this.result
   sku_name               = "B_Standard_B1ms"
   storage_mb             = 32768
   version                = "14"

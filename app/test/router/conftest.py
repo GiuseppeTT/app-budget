@@ -10,7 +10,8 @@ from app.main import app
 
 @pytest.fixture(name="session")
 def session_fixture():
-    engine = create_engine(settings.TEST_DATABASE_URL, poolclass=StaticPool)
+    database_url = f"postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.DATABASE_FQDN}:5432/test?sslmode=require"
+    engine = create_engine(database_url, poolclass=StaticPool)
 
     SQLModel.metadata.drop_all(bind=engine)
     SQLModel.metadata.create_all(bind=engine)
