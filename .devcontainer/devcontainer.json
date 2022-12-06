@@ -2,30 +2,30 @@
 	"name": "Python 3",
 	"image": "mcr.microsoft.com/devcontainers/python:3.11",
 	"features": {
-		"ghcr.io/devcontainers/features/node:1": {
-			"version": "none"
-		},
-		"ghcr.io/devcontainers/features/docker-in-docker:1": {},
-		"ghcr.io/devcontainers-contrib/features/poetry:1": {}
+		"ghcr.io/devcontainers-contrib/features/poetry:1": {},
+		"ghcr.io/devcontainers/features/azure-cli:1": {},
+		"ghcr.io/devcontainers/features/docker-in-docker:2": {},
+		"ghcr.io/devcontainers/features/terraform:1": {}
 	},
 	"customizations": {
 		"vscode": {
 			"extensions": [
 				"bungcip.better-toml",
+				"hashicorp.terraform",
 				"VisualStudioExptTeam.vscodeintellicode"
 			]
 		}
 	},
 
-	// Use 'forwardPorts' to make a list of ports inside the container available locally.
-	// "forwardPorts": [],
+	// Load environment variables
+	// https://code.visualstudio.com/remote/advancedcontainers/environment-variables
+	"runArgs": ["--env-file", ".env"],
 
-	// Use 'postCreateCommand' to run commands after the container is created.
-	"postCreateCommand": "poetry install --no-root"
+	// Set up devcontainer after container is created
+	// https://code.visualstudio.com/docs/devcontainers/create-dev-container#_rebuild
+	"postCreateCommand": ". .devcontainer/run-post-create-set-up.sh"
 
-	// Configure tool-specific properties.
-	// "customizations": {},
-
-	// Uncomment to connect as root instead. More info: https://aka.ms/dev-containers-non-root.
+	// Uncomment to connect as root instead
+	// https://aka.ms/dev-containers-non-root.
 	// "remoteUser": "root"
 }
