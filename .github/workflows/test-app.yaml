@@ -19,12 +19,13 @@ jobs:
           cli_config_credentials_hostname: app.terraform.io
           cli_config_credentials_token: ${{ secrets.TF_TOKEN }}
           terraform_version: ~1.3
+          terraform_wrapper: false
 
       - name: Initialize Terraform
         run: terraform init
 
       - name: Set database FQDN environment variable
-        run: echo "DATABASE_FQDN=$(echo terraform output -raw database_fqdn)" >> $GITHUB_ENV
+        run: echo "DATABASE_FQDN=$(terraform output -raw database_fqdn)" >> $GITHUB_ENV
 
       - name: Set up Python
         uses: actions/setup-python@v4
