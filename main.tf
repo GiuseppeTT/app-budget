@@ -19,7 +19,7 @@ resource "random_password" "this" {
   min_special      = 1
   min_upper        = 1
   numeric          = true
-  override_special = "_"  # Make compatible with bash and PostgreSQL URL
+  override_special = "_" # Make compatible with bash and PostgreSQL URL
   special          = true
   upper            = true
 }

@@ -1,6 +1,7 @@
 import pytest
 from fastapi.testclient import TestClient
 from sqlmodel import Session, SQLModel, create_engine
+from sqlmodel.engine.create import URL
 from sqlmodel.pool import StaticPool
 
 from app.config import settings
@@ -10,7 +11,14 @@ from app.main import app
 
 @pytest.fixture(name="session")
 def session_fixture():
-    database_url = f"postgresql://{settings.DATABASE_USERNAME}:{settings.DATABASE_PASSWORD}@{settings.DATABASE_FQDN}:5432/test?sslmode=require"
+    database_url = URL.create(
+        drivername="postgresql",
+        username=settings.DATABASE_USERNAME,
+        password=settings.DATABASE_PASSWORD,
+        host=settings.DATABASE_FQDN,
+        port=5432,
+        database="test",
+    )
     engine = create_engine(database_url, poolclass=StaticPool)
 
     SQLModel.metadata.drop_all(bind=engine)
