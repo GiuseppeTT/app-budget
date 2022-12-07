@@ -1,11 +1,10 @@
-from typing import Optional
-
 from pydantic import BaseSettings
 
 
 class Settings(BaseSettings):
-    PROD_DATABASE_URL: Optional[str] = None
-    TEST_DATABASE_URL: Optional[str] = None
+    DATABASE_USERNAME: str
+    DATABASE_PASSWORD: str
+    DATABASE_FQDN: str
 
     class Config:
         env_file = ".env"

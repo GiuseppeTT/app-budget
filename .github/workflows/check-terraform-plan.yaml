@@ -31,16 +31,12 @@ jobs:
 
       - name: Validate Terraform's files
         id: validate
-        env:
-          TF_VAR_database_username: ${{ secrets.DATABASE_USERNAME }}
-          TF_VAR_database_password: ${{ secrets.DATABASE_PASSWORD }}
         run: terraform validate -no-color
 
       - name: Generate terraform plan
         id: plan
         env:
-          TF_VAR_database_username: ${{ secrets.DATABASE_USERNAME }}
-          TF_VAR_database_password: ${{ secrets.DATABASE_PASSWORD }}
+          TF_VAR_docker_image_tag: ${{ github.sha }}
         run: terraform plan -no-color
 
       - name: Geneta summary

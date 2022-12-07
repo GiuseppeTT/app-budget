@@ -25,7 +25,5 @@ jobs:
 
       - name: Apply Terraform's plan
         env:
-          TF_VAR_database_username: ${{ secrets.DATABASE_USERNAME }}
-          TF_VAR_database_password: ${{ secrets.DATABASE_PASSWORD }}
           TF_VAR_docker_image_tag: ${{ github.sha }}
         run: terraform apply -auto-approve -input=false
