@@ -12,15 +12,16 @@ resource "random_string" "this" {
 }
 
 resource "random_password" "this" {
-  length      = 32
-  lower       = true
-  min_lower   = 1
-  min_numeric = 1
-  min_special = 1
-  min_upper   = 1
-  numeric     = true
-  special     = true
-  upper       = true
+  length           = 32
+  lower            = true
+  min_lower        = 1
+  min_numeric      = 1
+  min_special      = 1
+  min_upper        = 1
+  numeric          = true
+  override_special = "_"  # Make compatible with bash and PostgreSQL URL
+  special          = true
+  upper            = true
 }
 
 resource "azurerm_postgresql_flexible_server" "this" {
@@ -107,7 +108,9 @@ resource "azurerm_container_group" "this" {
     }
 
     secure_environment_variables = {
-      PROD_DATABASE_URL = "postgresql://${azurerm_postgresql_flexible_server.this.administrator_login}:${azurerm_postgresql_flexible_server.this.administrator_password}@${azurerm_postgresql_flexible_server.this.fqdn}:5432/${azurerm_postgresql_flexible_server_database.prod.name}?sslmode=require"
+      DATABASE_USERNAME = azurerm_postgresql_flexible_server.this.administrator_login
+      DATABASE_PASSWORD = azurerm_postgresql_flexible_server.this.administrator_password
+      DATABASE_FQDN     = azurerm_postgresql_flexible_server.this.fqdn
     }
   }
 }

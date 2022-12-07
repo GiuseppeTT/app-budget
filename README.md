@@ -36,6 +36,8 @@ After that, the project will be all set up.
 
 To test the API locally, simply run `. script/app-test.sh`
 
+> **Note:** You will probably need to add your IP address to the database service in order to connect to it locally (necessary for testing locally).
+
 > **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the API at any push to main or open pull request.
 
 ### ... Lint / format the python files / types locally
