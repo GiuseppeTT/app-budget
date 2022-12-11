@@ -32,7 +32,7 @@ After that, the project will be all set up.
 
 > **Note:** You can check more instructions on the [devcontainer documentation](https://code.visualstudio.com/docs/devcontainers/containers).
 
-### ... Test the API locally
+### ... Test the API
 
 To test the API locally, simply run `. script/app-test.sh`
 
@@ -40,7 +40,7 @@ To test the API locally, simply run `. script/app-test.sh`
 
 > **Note:** There is a CI/CD workflow (`.github/workflows/test-app.yaml`) set up to test the API at any push to main or open pull request.
 
-### ... Lint / format the python files / types locally
+### ... Lint / format the python files / types
 
 To format the python files locally, simply run `. script/python-format-files.sh`
 
@@ -54,13 +54,13 @@ To lint the python types locally, simply run `. script/python-lint-types.sh`
 
 > **Note:** There is a CI/CD workflow (`.github/workflows/lint-python-types.yaml`) set up to lint the python types at any push to main or open pull request.
 
-### ... Serve the API locally
+### ... Serve the API
 
 To serve the API locally, simply run `. script/app-serve.sh`
 
 After that, you can check the endpoints at `http://localhost:8000/docs` (it maybe another host:port in devcontainer).
 
-### ... Build the docker image and run locally
+### ... Build the docker image and run
 
 To build the docker image and run it locally to serve the API, simply run `. script/docker-build-image.sh` and then `. script/docker-run-container.sh`
 
